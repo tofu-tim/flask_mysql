@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, request
 from flask_app import app
-from flask_app.models import dojo, ninja
+from flask_app.models.dojo import Dojo
+from flask_app.models.ninja import Ninja
 
 @app.route('/dojos')
 def dojos():
@@ -9,6 +10,5 @@ def dojos():
 
 @app.route('/add/dojo', methods=['POST'])
 def add_dojo():
-    add_dojo = Dojo(request.form)
-    add_dojo.save()
+    Dojo.save(request.form)
     return redirect('/')
