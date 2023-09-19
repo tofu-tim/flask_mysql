@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/user_details.css" rel="stylesheet">
+    <title>User</title>
+</head>
+
+<body>
+    <h2 class="text-center">User: {{user.id}}</h2>
+    <div class="container">
+        <p>Full Name: {{user.full_name()}}</p>
+        <p>Email: {{user.email}}</p>
+
+        <p>Created at: {{ user.created_at|default('N/A') }}</p>
+        <p>Last Updated: {{ user.updated_at|default('N/A') }}</p>
+    </div>
+</body>
+
+<a href="/users" class="btn btn-success">Home</a>
+
+</html>
