@@ -40,18 +40,18 @@ class User:
         return cls(result[0])
 
     
-    # @classmethod
-    # def update(cls, data):
-    #     query = "UPDATE users SET first_name=%(first_name)s, last_name=%(last_name)s, email=%(email)s, updated_at=NOW() WHERE id = %(id)s;"
-    #     return connectToMySQL('users_schema').query_db(query, data)
-
-
     @classmethod
     def update(cls, data):
         query = "UPDATE users SET first_name=%(first_name)s, last_name=%(last_name)s, email=%(email)s, updated_at=NOW() WHERE id = %(id)s;"
-        connectToMySQL('users_schema').query_db(query, data)
-        updated_user_data = cls.get_one({'id': data['id']})
-        return cls(updated_user_data)
+        return connectToMySQL('users_schema').query_db(query, data)
+
+
+    # @classmethod
+    # def update(cls, data):
+    #     query = "UPDATE users SET first_name=%(first_name)s, last_name=%(last_name)s, email=%(email)s, updated_at=NOW() WHERE id = %(id)s;"
+    #     connectToMySQL('users_schema').query_db(query, data)
+    #     updated_user_data = cls.get_one({'id': data['id']})
+    #     return cls(updated_user_data)
 
 
     @classmethod
