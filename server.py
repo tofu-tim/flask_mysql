@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 
 from users import User
 
@@ -39,10 +39,11 @@ def show(id):
     return render_template("show_user.html",user=User.get_one(data))
 
 
-@app.route('/user/update',methods=['POST'])
+@app.route('/user/update', methods=['POST'])
 def update():
+    user_id = request.form["id"]
     User.update(request.form)
-    return redirect('/users')
+    return redirect(url_for('show', id=user_id))
 
 @app.route('/user/destroy/<int:id>')
 def destroy(id):
