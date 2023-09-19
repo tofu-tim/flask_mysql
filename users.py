@@ -12,7 +12,6 @@ class User:
     def full_name(self):
         return f"{self.first_name} {self.last_name}"
     
-
     @classmethod
     def get_all(cls):
         query = "SELECT * FROM users;"
@@ -36,7 +35,7 @@ class User:
 
     @classmethod
     def get_one(cls,data):
-        query  = "SELECT * FROM users WHERE id = %(id)s";
+        query  = "SELECT * FROM users WHERE id = %(id)s;"
         result = connectToMySQL('users_schema').query_db(query,data)
         return cls(result[0])
 
