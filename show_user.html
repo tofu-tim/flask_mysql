@@ -5,35 +5,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User {{ user.id }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='user_details.css') }}">
+    <link href="/static/user_details.css" rel="stylesheet">
+    <title>User</title>
 </head>
 
 <body>
-    <h1 class="text-center">User {{ user.id }}</h1>
-    <div class="user-info">
-        <div class="user-row">
-            <div class="user-label">Full Name:</div>
-            <div class="user-value">{{ user.first_name }} {{ user.last_name }}</div>
-        </div>
-        <div class="user-row">
-            <div class="user-label">Email:</div>
-            <div class="user-value">{{ user.email }}</div>
-        </div>
-        <div class="user-row">
-            <div class="user-label">Created at:</div>
-            <div class="user-value">{{ user.created_at }}</div>
-        </div>
-        <div class="user-row">
-            <div class="user-label">Last updated at:</div>
-            <div class="user-value">{{ user.updated_at }}</div>
-        </div>
+    <h2 class="text-center">User: {{user.id}}</h2>
+    <div class="container">
+        <p>Full Name: {{user.full_name()}}</p>
+        <p>Email: {{user.email}}</p>
+
+        <p>Created at: {{ user.created_at|default('N/A') }}</p>
+        <p>Last Updated: {{ user.updated_at|default('N/A') }}</p>
     </div>
-    <div class="user-actions">
-        <a href="/users/{{ user.id }}/edit" class="btn btn-info">Edit</a>
-        <a href="/users/{{ user.id }}/destroy" class="btn btn-danger">Delete</a>
-    </div>
-    <a href="/users" class="home-button">Home</a>
 </body>
+
+<a href="/users" class="btn btn-success">Home</a>
 
 </html>
