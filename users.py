@@ -1,60 +1,52 @@
-from mysqlconnection import connectToMySQL
+from flask import Flask, render_template, redirect, request, url_for
+from flask_app import app
+from flask_app.models.user import User
 
-class User:
-    def __init__(self, data):
-        self.id = data['id']
-        self.first_name = data['first_name']
-        self.last_name = data['last_name']
-        self.email = data['email']
-        self.created_at = data['created_at']
-        self.updated_at = data['updated_at']
-
-    def full_name(self):
-        return f"{self.first_name} {self.last_name}"
-    
-    @classmethod
-    def get_all(cls):
-        query = "SELECT * FROM users;"
-        results = connectToMySQL('users_schema').query_db(query)
-        users = []
-        for u in results:
-            users.append( cls(u) )
-        return users
-
-    # @classmethod
-    # def save(cls, data):
-    #     query = "INSERT INTO users (first_name,last_name,email, created_at) VALUES (%(first_name)s,%(last_name)s,%(email)s, %(now)s);"
-    #     result = connectToMySQL('users_schema').query_db(query,data)
-    #     return result
-    
-    @classmethod
-    def save(cls, data):
-        query = "INSERT INTO users (first_name, last_name, email, created_at, updated_at) VALUES (%(first_name)s, %(last_name)s, %(email)s, NOW(), NOW());"
-        result = connectToMySQL('users_schema').query_db(query, data)
-        return result
-
-    @classmethod
-    def get_one(cls,data):
-        query  = "SELECT * FROM users WHERE id = %(id)s;"
-        result = connectToMySQL('users_schema').query_db(query,data)
-        return cls(result[0])
-
-    
-    @classmethod
-    def update(cls, data):
-        query = "UPDATE users SET first_name=%(first_name)s, last_name=%(last_name)s, email=%(email)s, updated_at=NOW() WHERE id = %(id)s;"
-        return connectToMySQL('users_schema').query_db(query, data)
+@app.route('/')
+def index():
+    return redirect('/users')
 
 
-    # @classmethod
-    # def update(cls, data):
-    #     query = "UPDATE users SET first_name=%(first_name)s, last_name=%(last_name)s, email=%(email)s, updated_at=NOW() WHERE id = %(id)s;"
-    #     connectToMySQL('users_schema').query_db(query, data)
-    #     updated_user_data = cls.get_one({'id': data['id']})
-    #     return cls(updated_user_data)
+@app.route('/users')
+def users():
+    return render_template("read_all.html",users=User.get_all())
 
 
-    @classmethod
-    def destroy(cls,data):
-        query  = "DELETE FROM users WHERE id = %(id)s;"
-        return connectToMySQL('users_schema').query_db(query,data)
+@app.route('/user/new')
+def new():
+    return render_template("create.html")
+
+@app.route('/user/create',methods=['POST'])
+def create():
+    print(request.form)
+    User.save(request.form)
+    return redirect('/users')
+
+@app.route('/user/edit/<int:id>')
+def edit(id):
+    data ={ 
+        "id":id
+    }
+    return render_template("edit_user.html",user=User.get_one(data))
+
+@app.route('/user/show/<int:id>')
+def show(id):
+    data ={ 
+        "id":id
+    }
+    return render_template("show_user.html",user=User.get_one(data))
+
+
+@app.route('/user/update', methods=['POST'])
+def update():
+    user_id = request.form["id"]
+    User.update(request.form)
+    return redirect(url_for('show', id=user_id))
+
+@app.route('/user/destroy/<int:id>')
+def destroy(id):
+    data ={
+        'id': id
+    }
+    User.destroy(data)
+    return redirect('/users')
