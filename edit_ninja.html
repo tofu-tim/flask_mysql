@@ -11,9 +11,9 @@
 
 <body>
 
-    <form action="/ninjas/edit/<ninja_id>'" method="post" class="col-6 mx-auto">
+    <form action="/ninjas/edit/{{ninja.id}}" method="post" class="col-6 mx-auto">
         <h2 class="text-center">Edit {{ninja.first_name}}</h2>
-        <input type="hidden" name="id" value={{ninja.id}}>
+        <input type="hidden" name="id" value="{{ninja.id}}">
         <div class="form-group">
             <label for="first_name">First Name:</label>
             <input type="text" name="first_name" class="form-control" value="{{ninja.first_name}}">
