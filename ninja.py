@@ -1,5 +1,4 @@
 from flask_app.config.mysqlconnection import connectToMySQL
-# from flask_app.models.dojo import Dojo
 
 class Ninja:
     def __init__(self, data):
@@ -14,6 +13,7 @@ class Ninja:
 
     @classmethod
     def get_all(cls):
+        from flask_app.models.dojo import Dojo
         query = "SELECT * FROM ninjas;"
         results = connectToMySQL('dojos_and_ninjas_schema').query_db(query)
         ninja = []
@@ -30,8 +30,9 @@ class Ninja:
     @classmethod
     def get_one(cls,data):
         query  = "SELECT * FROM ninjas WHERE id = %(id)s;"
+        data ={"id": id}
         result = connectToMySQL('dojos_and_ninjas_schema').query_db(query,data)
-        return cls(result[0])
+        return result
 
     @classmethod
     def update(cls,data):
