@@ -28,10 +28,10 @@ def delete_ninja(ninja_id, dojo_id):
     return redirect('/ninjas')
 
 
-@app.route('/ninjas/edit/<ninja_id>', methods=['POST'])
-def edit_page(ninja_id):
-    print("Editing ninja id:", ninja_id)
-    return render_template('edit_ninja.html', ninja=ninja)
+@app.route('/ninjas/edit/<id>', methods=['POST'])
+def edit_page(id):
+    ninja = Ninja.get_one(id)
+    return render_template('edit_ninja.html', ninja=ninja) 
 
 
 @app.route('/ninjas/update/<dojo_id>', methods=["POST"])
