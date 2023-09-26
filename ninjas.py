@@ -7,7 +7,7 @@ from flask_app.models.ninja import Ninja
 def index():
     return render_template("dojos_main.html")
 
-@app.route('/ninjas')
+@app.route('/ninjas', methods=['GET', 'POST'])
 def ninjas():
     ninjas = Ninja.get_all()
     return render_template('ninja.html', ninjas=ninjas)
@@ -28,10 +28,21 @@ def delete_ninja(ninja_id, dojo_id):
     return redirect('/ninjas')
 
 
+# @app.route('/ninjas/edit/<id>', methods=['POST'])
+# def edit_page(id):
+#     ninja = Ninja.get_one(id)
+#     return render_template('edit_ninja.html', ninja=ninja)
+
 @app.route('/ninjas/edit/<id>', methods=['POST'])
-def edit_page(id):
-    Ninja.update(request.form)
-    print("Updating ninja information: ", request.form)
+def edit_ninja(id):
+    first_name = request.form.get('first_name')
+    last_name = request.form.get('last_name')
+
+    for ninja in ninjas:
+        if ninja['id'] == id:
+            ninja['first_name'] = first_name
+            ninja['last_name'] = last_name
+
     return redirect('/ninjas')
 
 
