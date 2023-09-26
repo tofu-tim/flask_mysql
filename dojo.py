@@ -1,5 +1,4 @@
 from flask_app.config.mysqlconnection import connectToMySQL
-from flask_app.models.ninja import Ninja
 
 class Dojo:
     db = 'dojos_and_ninjas_schema'
@@ -9,6 +8,10 @@ class Dojo:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']    
         self.ninjas = []
+
+    @classmethod
+    def dojo_ninjas(cls, db, data):
+        from flask_app.models.ninja import Ninja
 
     @classmethod
     def get_all(cls):
