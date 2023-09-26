@@ -25,13 +25,12 @@
         <div class="form-group">
             <label for="dojo_id">Dojo:</label>
             <select name="dojo_id" id="">
-
             {% for dojo in dojos %}
                 <option value="{{dojo.id}}">{{dojo.name}}</option>
             {% endfor %}
             </select>
         </div>
-        <input type="submit" value="Update Ninja" class="btn btn-success">
+        <input type="submit" formaction="/ninjas" value="Update Ninja" class="btn btn-success">
     </form>
 </body>
 
