@@ -1,19 +1,25 @@
-from flask import Flask, render_template, redirect, request
+
 from flask_app import app
+from flask import render_template, redirect, request, session
 from flask_app.models.dojo import Dojo
-from flask_app.models.ninja import Ninja
+
+
+@app.route('/')
+def index():
+    return redirect('/dojos')
 
 @app.route('/dojos')
-def dojos():
-    dojos = Dojo.get_all()
-    return render_template('dojos_main.html', dojos=dojos)
+def dashboard():
+    return render_template('dojo.html', dojos = Dojo.get_all())
 
-@app.route('/add/dojo', methods=['POST'])
-def add_dojo():
+@app.route('/create/dojo', methods = ['POST'])
+def create_dojo():
     Dojo.save(request.form)
     return redirect('/dojos')
 
 @app.route('/dojos/<int:id>')
-def show_dojo(id):
-    dojo = Dojo.dojo_ninjas(id)
-    return render_template('dojo.html', dojo=dojo)
+def dojo_dashboard(id):
+    data = {
+        "id": id
+    }
+    return render_template('ninja_show.html', dojo = Dojo.get_one(data))
