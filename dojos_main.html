@@ -1,29 +1,63 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Dojos Main Page</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/dojos_main.css" rel="stylesheet">
+    <title>Dojos and Ninjas</title>
 </head>
 
 <body>
-    <div style="display: flex;">
-        <div style="flex: 1;">
-            <h2>Add Dojo</h2>
-            <form action="/add/dojo" method="post">
-                <label for="dojo_name">Dojo Name:</label><br>
-                <input type="text" id="dojo_name" name="dojo_name"><br><br>
-                <input type="submit" value="Submit">
-            </form>
+
+    <form action="/add/dojo" method="post" class="col-6 mx-auto">
+        <h2 class="text-center">Add Dojo</h2>
+        <div class="form-group">
+            <label for="name">Location:</label>
+            <input type="text" name="name" class="form-control">
         </div>
-        <div style="flex: 1;">
-            <h2>List of Dojos</h2>
-            <ul>
-                {% for dojo in dojos %}
-                <li>{{ dojo.name }}</li>
-                {% endfor %}
-            </ul>
+        <input type="submit" value="Add Dojo" class="btn btn-success">
+
+        <div class="text-center mt-4">
+            <a href="/new/ninja" class="btn btn-primary">Add Ninja</a>
+            <a href="/ninjas" class="btn btn-primary">All Ninjas</a>
+        </div>
+    </form>
+
+    <div class="container mt-4">
+        <h1 class="text-center">All Dojos</h1>
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="list-group">
+                    {% for dojo in dojos %}
+                    <li class="list-group-item text-center">
+                        <a href="/dojos/{{ dojo.id }}" class="text-decoration-none">{{ dojo.name }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
     </div>
+
+
+    <!-- <div class="container mt-4">
+        <h1 class="text-center">All Dojos</h1>
+        <div class="row">
+            {% for i in range(0, dojos|length, 10) %}
+            <div class="col-md-6">
+                <ul class="list-group">
+                    {% for dojo in dojos %}
+                    <li class="list-group-item text-center">
+                        <a href="/dojos/{{ dojo.id }}" class="text-decoration-none">{{ dojo.name }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+    </div> -->
+
 </body>
 
 </html>
