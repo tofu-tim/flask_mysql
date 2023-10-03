@@ -1,17 +1,12 @@
 from flask_app.config.mysqlconnection import connectToMySQL
+from flask_app.models.ninja import Ninja
 
 class Dojo:
     db = 'dojos_and_ninjas_schema'
     def __init__(self, data):
         self.id = data['id']
-        self.name = data['name']
-        self.created_at = data['created_at']
-        self.updated_at = data['updated_at']    
+        self.name = data['name'] 
         self.ninjas = []
-
-    @classmethod
-    def dojo_ninjas(cls, db, data):
-        from flask_app.models.ninja import Ninja
 
     @classmethod
     def get_all(cls):
@@ -38,23 +33,41 @@ class Dojo:
     def update(cls,data):
         query = "UPDATE dojos SET name=%(name)s,updated_at=NOW() WHERE id = %(id)s;"
         return connectToMySQL(cls.db).query_db(query,data)
-    
 
-@classmethod
-def dojo_ninjas(cls, id):
-    query = "SELECT * FROM dojos JOIN ninjas ON dojos.id = ninja.dojo_id WHERE dojo.id=%(id)s;"
-    data = {'id': id}
-    results = connectToMySQL(cls.db).query_db(query, data)
-    dojo = cls(results[0])
-    for i in results:
-        row = {
-            'id': i['ninja.id'],
-            'first_name': i['first_name'],
-            'last_name': i['last_name'],
-            'age': i['age'],
-            'created_at': i['ninja.created_at'],
-            'updated_at': i['ninja.updated_at'],
-        }
-        dojo.ninjas.append(Ninja(row))
-    return dojo
+    @classmethod
+    def dojo_ninjas(cls, id):
+        query = """
+            SELECT dojos.name, ninjas.id, ninjas.first_name, ninjas.last_name, ninjas.age, ninjas.dojo_id
+            FROM dojos
+            LEFT JOIN ninjas ON dojos.id = ninjas.dojo_id
+            WHERE dojos.id = %(id)s;
+        """
+        data = {'id': id}
+        results = connectToMySQL(cls.db).query_db(query, data)
+        print("Results:", results)
+        
+        if results:
+            dojo = cls(results[0])
+            dojo.ninjas = [Ninja(row) for row in results]
+            return dojo
+        else:
+            return None
+        
+    # @classmethod
+    # def dojo_ninjas(cls, id):
+    #     query = """
+    #         SELECT ninjas.id, ninjas.first_name, ninjas.last_name, ninjas.age
+    #         FROM dojos
+    #         LEFT JOIN ninjas ON dojos.id = ninjas.dojo_id
+    #         WHERE dojos.id = %(id)s;
+    #     """
+    #     data = {'id': id}
+    #     results = connectToMySQL(cls.db).query_db(query, data)
+    #     if not results:
+    #         return None 
+    #     dojo = cls(results[0])
+    #     dojo.ninjas = [Ninja(row) for row in results]
+    #     return dojo
+
+
 
