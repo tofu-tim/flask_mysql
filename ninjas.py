@@ -11,7 +11,7 @@ def index():
 @app.route('/ninjas', methods=['GET', 'POST'])
 def ninjas():
     ninjas = Ninja.get_all()
-    return render_template('ninja.html', ninjas=ninjas)
+    return render_template('ninja.html', ninjas=ninjas, get_dojo=Ninja.get_dojo)
 
 @app.route('/new/ninja')
 def new_ninja():
