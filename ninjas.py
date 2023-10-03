@@ -30,20 +30,10 @@ def delete_ninja(ninja_id, dojo_id):
 
 
 @app.route('/ninjas/edit/<int:id>', methods=['GET', 'POST'])
-def edit_ninja_form(id):
+def edit_ninja(id):
     ninja = Ninja.get_one(id)
     dojos = Dojo.get_all()
+    Ninja.update(request.form)
     return render_template('edit_ninja.html', ninja=ninja, dojos=dojos)
 
-
-@app.route('/ninjas/update/', methods=["GET", "POST"])
-def update_ninja():
-    if request.method == "POST":
-        print("Received form data: ", request.form)
-        result = Ninja.update(request.form)
-        if result:
-            print("Ninja updated successfully")
-        else:
-            print("Ninja update failed")
-        return redirect('/ninjas')
 
