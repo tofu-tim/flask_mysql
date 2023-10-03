@@ -37,30 +37,24 @@ class Dojo:
     @classmethod
     def update(cls,data):
         query = "UPDATE dojos SET name=%(name)s,updated_at=NOW() WHERE id = %(id)s;"
-        return connectToMySQL(db).query_db(query,data)
+        return connectToMySQL(cls.db).query_db(query,data)
     
 
 @classmethod
 def dojo_ninjas(cls, id):
-    query = "SELECT * FROM dojos JOIN ninjas ON dojos.id = ninjas.dojo_id WHERE dojos.id=%(id)s;"
+    query = "SELECT * FROM dojos JOIN ninjas ON dojos.id = ninja.dojo_id WHERE dojo.id=%(id)s;"
     data = {'id': id}
     results = connectToMySQL(cls.db).query_db(query, data)
     dojo = cls(results[0])
     for i in results:
         row = {
-            'id': i['ninjas.id'],
+            'id': i['ninja.id'],
             'first_name': i['first_name'],
             'last_name': i['last_name'],
             'age': i['age'],
-            'created_at': i['ninjas.created_at'],
-            'updated_at': i['ninjas.updated_at'],
+            'created_at': i['ninja.created_at'],
+            'updated_at': i['ninja.updated_at'],
         }
         dojo.ninjas.append(Ninja(row))
     return dojo
 
-
-
-    @classmethod
-    def destroy(cls,data):
-        query  = "DELETE FROM dojos WHERE id = %(id)s;"
-        return connectToMySQL(cls.db).query_db(query,data)
