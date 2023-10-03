@@ -1,6 +1,7 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 
 class Ninja:
+    db = 'dojos_and_ninjas_schema'
     def __init__(self, data):
         self.id = data['id']
         self.first_name = data['first_name']
@@ -15,7 +16,7 @@ class Ninja:
     def get_all(cls):
         from flask_app.models.dojo import Dojo
         query = "SELECT * FROM ninjas;"
-        results = connectToMySQL('dojos_and_ninjas_schema').query_db(query)
+        results = connectToMySQL(cls.db).query_db(query)
         ninja = []
         for u in results:
             ninja.append( cls(u) )
@@ -24,22 +25,23 @@ class Ninja:
     @classmethod
     def save(cls, data):
         query = "INSERT INTO ninjas (first_name,last_name,age,dojo_id) VALUES (%(first_name)s,%(last_name)s,%(age)s,%(dojo_id)s);"
-        result = connectToMySQL('dojos_and_ninjas_schema').query_db(query,data)
+        result = connectToMySQL(cls.db).query_db(query,data)
         return result
 
     @classmethod
     def get_one(cls,data):
         query  = "SELECT * FROM ninjas WHERE id = %(id)s;"
         data ={"id": id}
-        result = connectToMySQL('dojos_and_ninjas_schema').query_db(query,data)
+        result = connectToMySQL(cls.db).query_db(query,data)
         return result
 
     @classmethod
     def update(cls,data):
         query = "UPDATE ninjas SET first_name=%(first_name)s,last_name=%(last_name)s,age=%(age)s,dojo_id=%(dojo_id)s,updated_at=NOW() WHERE id = %(id)s;"
-        return connectToMySQL('dojos_and_ninjas_schema').query_db(query,data)
+        result = connectToMySQL(cls.db).query_db(query,data)
+        return result
 
     @classmethod
     def destroy(cls,data):
         query  = "DELETE FROM ninjas WHERE id = %(id)s;"
-        return connectToMySQL('dojos_and_ninjas_schema').query_db(query,data)
+        return connectToMySQL(cls.db).query_db(query,data)
