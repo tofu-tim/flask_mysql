@@ -1,0 +1,79 @@
+body {
+    background-color: #FFD1DC;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    background-color: #FFD1DC;
+    border: 2px solid #000;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+}
+
+.container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.card {
+    background-color: #AEEEEE;
+    border: 2px solid #000;
+    border-radius: 5px;
+    width: 30%;
+    display: inline-block;
+    vertical-align: top;
+    margin: 1%;
+    text-align: center;
+    padding: 15px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 1rem;
+}
+
+.card .btn-link-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.card .btn-link {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: #98FB98;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin: 5px;
+}
+
+.card .btn-link:hover {
+    background-color: #228B22;
+    color: #fff;
+}
+
+.text-center .btn.btn-primary {
+    background-color: #98FB98;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    margin: 20px;
+    padding: 10px 20px;
+}
+
+.text-center .btn.btn-primary:hover {
+    background-color: #228B22;
+    color: #fff;
+}

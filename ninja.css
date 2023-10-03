@@ -1,0 +1,80 @@
+body {
+    background-color: #FFD1DC;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.button-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+.btn {
+    padding: 10px 20px;
+    background-color: #98FB98;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.btn:hover {
+    background-color: #00FF00;
+}
+
+form {
+    background-color: #AEEEEE;
+    border: 2px solid #000;
+    border-radius: 5px;
+    padding: 20px;
+    width: 50%;
+    text-align: center;
+}
+
+.edit-ninja-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+}
+
+input[type="text"],
+select {
+    flex: 1;
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 5px;
+}
+
+.btn-update-ninja {
+    width: 30%;
+    height: 10%;
+    background-color: #98FB98;
+    color: #000;
+    border-color: #000;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-update-ninja:hover {
+    background-color: #00FF00;
+}

@@ -1,0 +1,117 @@
+body {
+    background-color: #FFD1DC;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+form {
+    background-color: #AEEEEE;
+    border: 2px solid #000;
+    border-radius: 5px;
+    padding: 20px;
+    width: 30%;
+    height: 50vh;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+
+form .form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+form label {
+    display: block;
+    font-weight: bold;
+}
+
+form input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 5px;
+}
+
+form input[type="submit"] {
+    width: 50%;
+    padding: 10px;
+    background-color: #98FB98;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.text-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.text-center a.btn {
+    margin: 5px;
+    padding: 10px 20px;
+    background-color: #98FB98;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+}
+
+.container.mt-4 {
+    background-color: #AEEEEE;
+    border: 2px solid #000;
+    border-radius: 5px;
+    padding: 20px;
+    width: 30%;
+    height: 50vh;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    overflow-y: auto;
+}
+
+.container.mt-4 h1 {
+    text-align: center;
+}
+
+.container.mt-4 .row {
+    justify-content: center;
+}
+
+.container.mt-4 .col-md-6 {
+    margin-bottom: 20px;
+}
+
+.container.mt-4 .list-group {
+    max-height: 70%;
+    overflow-y: auto;
+}
+
+.container.mt-4 .list-group-item {
+    text-align: center;
+}
+
+.container.mt-4 .text-decoration-none {
+    color: #000;
+}
+
+.btn:hover {
+    background-color: #00FF00;
+}
