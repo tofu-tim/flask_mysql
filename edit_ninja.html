@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/static/ninjas.css" rel="stylesheet">
+    <link href="/static/ninja.css" rel="stylesheet">
     <title>Edit User</title>
 </head>
 
 <body>
 
-    <form action="/ninjas/update" method="post" class="col-6 mx-auto">
-        <h2 class="text-center">Edit Ninja {{ninja.first_name}}</h2>
+    <form action="/ninjas/edit/{{ninja.id}}" method="post" class="col-6 mx-auto">
+        <h2 class="text-center edit-ninja-title">Edit Ninja {{ninja.first_name}}</h2>
         <input type="hidden" name="id" value="{{ninja.id}}">
         <div class="form-group">
             <label for="first_name">First Name:</label>
@@ -35,7 +35,11 @@
             </select>
 
         </div>
-        <input type="submit" formaction="/ninjas/update/{{ninja.id}}" value="Update Ninja" class="btn btn-success">
+        <div class="button-container">
+            <input type="submit" formaction="/ninjas" value="Update Ninja" class="btn btn-update-ninja">
+            <a href="/" class="btn">Home</a>
+            <a href="/ninjas" class="btn">All Ninjas</a>
+        </div>
 
 
     </form>
