@@ -14,6 +14,11 @@ def add_dojo():
     return redirect('/dojos')
 
 @app.route('/dojos/<int:id>')
-def show_dojo(id):
-    dojo = Dojo.dojo_ninjas(id)
+def dojo_dashboard(id):
+    data = {
+        "id": id
+    }
+    dojo = Dojo.get_one(data)
+    print(dojo.ninjas)
     return render_template('dojo.html', dojo=dojo)
+
