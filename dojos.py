@@ -14,11 +14,14 @@ def add_dojo():
     return redirect('/dojos')
 
 @app.route('/dojos/<int:id>')
-def dojo_dashboard(id):
+def dojo_students(id):
     data = {
         "id": id
     }
-    dojo = Dojo.get_one(data)
-    print(dojo.ninjas)
-    return render_template('dojo.html', dojo=dojo)
+    dojo = Dojo.dojo_ninjas(id)
 
+    if dojo is not None:
+        print(dojo.ninjas)
+        return render_template('dojo.html', dojo=dojo)
+    else:
+        return "Dojo not found"
