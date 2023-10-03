@@ -7,9 +7,7 @@ class Ninja:
         self.first_name = data['first_name']
         self.last_name = data['last_name']
         self.age = data['age']
-        self.dojo_id = data['dojo_id']
-        self.created_at = data['created_at']
-        self.updated_at = data['updated_at']   
+        self.dojo_id = data['dojo_id'] 
         self.whole_name = self.first_name + self.last_name 
 
     @classmethod
@@ -45,3 +43,10 @@ class Ninja:
     def destroy(cls,data):
         query  = "DELETE FROM ninjas WHERE id = %(id)s;"
         return connectToMySQL(cls.db).query_db(query,data)
+    
+    @classmethod
+    def get_dojo(cls, dojo_id):
+        from flask_app.models.dojo import Dojo
+        dojo_data = Dojo.get_one({"id": dojo_id})
+        return dojo_data.name
+
