@@ -11,7 +11,12 @@ def index():
 @app.route('/ninjas', methods=['GET', 'POST'])
 def ninjas():
     ninjas = Ninja.get_all()
-    return render_template('ninja.html', ninjas=ninjas, get_dojo=Ninja.get_dojo)
+    return render_template('ninja.html', ninjas=ninjas,  get_dojo=Ninja.get_dojo)
+
+# @app.route('/ninjas', methods=['GET', 'POST'])
+# def ninjas():
+#     ninjas = Ninja.get_all()
+#     return render_template('ninja.html', ninjas=ninjas, get_dojo=Ninja.get_dojo)
 
 @app.route('/new/ninja')
 def new_ninja():
@@ -29,11 +34,21 @@ def delete_ninja(ninja_id, dojo_id):
     return redirect('/ninjas')
 
 
-@app.route('/ninjas/edit/<int:id>', methods=['GET', 'POST'])
+@app.route('/ninjas/edit/<int:id>', methods=['GET','POST'])
 def edit_ninja(id):
-    ninja = Ninja.get_one(id)
+    ninja = Ninja.get_one({"id": id})
     dojos = Dojo.get_all()
-    Ninja.update(request.form)
     return render_template('edit_ninja.html', ninja=ninja, dojos=dojos)
 
 
+@app.route('/ninjas/update/<int:id>', methods=['GET','POST'])
+def update_ninja(id):
+    data = {
+        "id": id,
+        "first_name": request.form["first_name"],
+        "last_name": request.form["last_name"],
+        "age": request.form["age"],
+        "dojo_id": request.form["dojo_id"]
+    }
+    Ninja.update(data)
+    return redirect('/ninjas')
