@@ -32,12 +32,20 @@ class Ninja:
         data ={"id": id}
         result = connectToMySQL(cls.db).query_db(query,data)
         return result
-
+    
     @classmethod
-    def update(cls,data):
-        query = "UPDATE ninjas SET first_name=%(first_name)s,last_name=%(last_name)s,age=%(age)s,dojo_id=%(dojo_id)s,updated_at=NOW() WHERE id = %(id)s;"
-        result = connectToMySQL(cls.db).query_db(query,data)
+    def update(cls, data):
+        query = "UPDATE ninjas SET first_name=%(first_name)s,last_name=%(last_name)s,age=%(age)s,dojo_id=%(dojo_id)s WHERE id = %(id)s;"
+        result = connectToMySQL(cls.db).query_db(query, data)
         return result
+
+
+    # @classmethod
+    # def update(cls, data):
+    #     query = "UPDATE ninjas SET first_name=%(first_name)s,last_name=%(last_name)s,age=%(age)s,dojo_id=%(dojo_id)s WHERE id = %(id)s;"
+    #     result = connectToMySQL(cls.db).query_db(query, data)
+    #     return result
+
 
     @classmethod
     def destroy(cls,data):
