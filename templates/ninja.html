@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/all_ninjas.css" rel="stylesheet">
+    <title>All Ninjas</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1 class="text-center">All Ninjas</h1>
+        <div class="row">
+            {% for ninja in ninjas %}
+            <div class="col-md-3">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ ninja.first_name }} {{ ninja.last_name }}</h5>
+                        <p class="card-text">Age: {{ ninja.age }}</p>
+                        <p class="card-text">Dojo: {{ get_dojo(ninja.dojo_id) }}</p>
+                        <div class="d-flex justify-content-between">
+                            <form action="/ninjas/edit/{{ ninja.id }}" method="post">
+                                <input type="hidden" name="id" value="{{ ninja.id }}">
+                                <button type="submit" class="btn btn-link">Edit</button>
+                            </form>
+
+                            <form action="/ninjas/delete/{{ ninja.id }}/{{ ninja.dojo_id }}" method="post">
+                                <input type="hidden" name="id" value="{{ ninja.id }}">
+                                <input type="hidden" name="dojo_id" value="{{ ninja.dojo_id }}">
+                                <button type="submit" class="btn btn-link text-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <div class="d-flex justify-content-center">
+                <a href="/new/ninja" class="btn btn-primary mr-2">Add Ninja</a>
+                <a href="/" class="btn btn-primary">Home</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

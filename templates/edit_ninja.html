@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/ninja.css" rel="stylesheet">
+    <title>Edit User</title>
+</head>
+
+<body>
+
+    <form action="/ninjas/update/{{ ninja.id }}" method="post" class="col-6 mx-auto">
+        <input type="hidden" name="_method" value="POST">
+        <h2 class="text-center edit-ninja-title">Edit Ninja {{ninja.first_name}}</h2>
+        <input type="hidden" name="id" value="{{ninja.id}}">
+        <div class="form-group">
+            <label for="first_name">First Name:</label>
+            <input type="text" name="first_name" class="form-control" value="{{ ninja.first_name }}">
+        </div>
+        <div class="form-group">
+            <label for="last_name">Last Name:</label>
+            <input type="text" name="last_name" class="form-control" value="{{ ninja.last_name }}">
+        </div>
+        <div class="form-group">
+            <label for="age">Age:</label>
+            <input type="text" name="age" class="form-control" value="{{ ninja.age }}">
+        </div>
+        <div class="form-group">
+            <label for="dojo_id">Dojo:</label>
+            <select name="dojo_id">
+                {% for dojo in dojos %}
+                    <option value="{{dojo.id}}" {% if dojo.id == ninja.dojo_id %}selected{% endif %}>{{dojo.name}}</option>
+                {% endfor %}
+            </select>
+
+        </div>
+        <div class="button-container">
+            <input type="submit" value="Update Ninja" class="btn btn-success">
+            <a href="/" class="btn">Home</a>
+            <a href="/ninjas" class="btn">All Ninjas</a>
+        </div>
+
+
+    </form>
+</body>
+
+</html>
